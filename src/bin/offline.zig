@@ -39,6 +39,7 @@ const Config = struct {
         if (!std.mem.eql(u8, std.fs.path.extension(out_filepath), ".exr")) return error.OnlySupportsExrOutput;
 
         const spp = try std.fmt.parseInt(u32, args_iter.next().?, 10);
+        if (spp == 0) return error.ZeroSamplesPerPixel;
 
         return Config {
             .in_filepath = try allocator.dupe(u8, in_filepath),
